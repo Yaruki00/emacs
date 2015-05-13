@@ -133,3 +133,15 @@
 (require 'haskell-mode)
 (setq auto-mode-alist (cons
   '("\\.hs$" . haskell-mode) auto-mode-alist))
+
+;;
+;; magit
+;;___________________________________________________
+(require 'magit)
+
+;;
+;; git-gutter-fringe
+;;___________________________________________________
+(require 'git-gutter-fringe)
+(setq git-gutter-fr:side 'right-fringe)
+(global-git-gutter-mode t)
