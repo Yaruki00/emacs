@@ -24,7 +24,6 @@
 
 ; とりあえずUTF-8使っとけ
 (prefer-coding-system 'utf-8)
-(setq default-buffer-file-coding-system 'utf-8)
 (set-buffer-file-coding-system  'utf-8)
 (set-terminal-coding-system     'utf-8)
 (set-keyboard-coding-system     'utf-8)
@@ -92,12 +91,19 @@
 ;;___________________________________________________
 (require 'auto-complete)
 (global-auto-complete-mode t)
+(add-to-list 'ac-modes 'd-mode) ;; d-modeで有効
+(setq ac-use-menu-map t)        ;; 補完メニュー表示時にC-n/C-pで補完候補選択
 
 ;;
 ;; popwin
 ;;___________________________________________________
 (require 'popwin)
 (setq display-buffer-function 'popwin:display-buffer)
+
+;;
+;; flycheck
+;;___________________________________________________
+(add-hook 'after-init-hook #'global-flycheck-mode)
 
 ;;
 ;; D lang
@@ -122,7 +128,7 @@
 (setup-flycheck-d-unittest)
 
 ;;
-;; haskell-mode
+;; haskell
 ;;___________________________________________________
 (require 'haskell-mode)
 (setq auto-mode-alist (cons
