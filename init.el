@@ -145,3 +145,16 @@
 (require 'git-gutter-fringe)
 (setq git-gutter-fr:side 'right-fringe)
 (global-git-gutter-mode t)
+
+;;
+;; undo-tree
+;;___________________________________________________
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+
+;;
+;; undohist
+;;___________________________________________________
+(require 'undohist)
+(undohist-initialize)
