@@ -8,21 +8,21 @@
 ;; Window setting
 ;;__________________________________________________
 
-(if window-system                   ; x上で動いていたら
-    (progn                          ; 逐次実行後、最後のフォームの結果を返す
-      (tool-bar-mode 0)             ; ツールバー非表示
-      (set-scroll-bar-mode nil)     ; スクロールバー非表示
-      (menu-bar-mode -1)            ; メニューバー非表示
-      (setq ns-pop-up-frames nil))) ; emacsを複数開かない
+(if window-system                   ;; x上で動いていたら
+    (progn                          ;; 逐次実行後、最後のフォームの結果を返す
+      (tool-bar-mode 0)             ;; ツールバー非表示
+      (set-scroll-bar-mode nil)     ;; スクロールバー非表示
+      (menu-bar-mode -1)            ;; メニューバー非表示
+      (setq ns-pop-up-frames nil))) ;; emacsを複数開かない
 
 ;;
 ;; encoding
 ;;__________________________________________________
 
-; 言語を日本語にする
+;; 言語を日本語にする
 (set-language-environment 'Japanese)
 
-; とりあえずUTF-8使っとけ
+;; とりあえずUTF-8使っとけ
 (prefer-coding-system 'utf-8)
 (set-buffer-file-coding-system  'utf-8)
 (set-terminal-coding-system     'utf-8)
@@ -33,29 +33,29 @@
 ;; Others
 ;;__________________________________________________
 
-; 行番号をデフォルトで表示
+;; 行番号をデフォルトで表示
 (global-linum-mode 1)
 
-; 対応する括弧を光らせる。
+;; 対応する括弧を光らせる。
 (show-paren-mode 1)
 
-; スタートアップ非表示
+;; スタートアップ非表示
 (setq inhibit-startup-screen t)
 
-; scratchの初期メッセージ消去
+;; scratchの初期メッセージ消去
 (setq initial-scratch-message "")
 
-; タイトルバーにファイルのフルパス表示
+;; タイトルバーにファイルのフルパス表示
 (setq frame-title-format
       (format "%%f" (system-name)))
 
-; 初期フレームの設定
+;; 初期フレームの設定
 (setq initial-frame-alist
       (append
-       '((width		.	80)   ; フレーム幅(文字数)
-	 (height	.	60)   ; フレーム高(文字数)
-	 (top		.	0)    ; 表示位置
-	 (left		.	855)  ; 表示位置
+       '((width		.	80)   ;; フレーム幅(文字数)
+	 (height	.	60)   ;; フレーム高(文字数)
+	 (top		.	0)    ;; 表示位置
+	 (left		.	855)  ;; 表示位置
 	 (foreground-color . "white")
 	 (background-color . "black")
 	 (border-color     . "white")
@@ -66,8 +66,44 @@
 ;; 警告音もフラッシュも全て無効(警告音が完全に鳴らなくなるので注意)
 (setq ring-bell-function 'ignore)
 
+;; キーバインド
+(define-key global-map (kbd "C-h") 'delete-backward-char) ;; 削除
+(define-key global-map (kbd "C-z") 'undo)                 ;; undo
+(define-key global-map (kbd "C-c ;") 'comment-dwim)       ;; コメントアウト
+(define-key global-map (kbd "M-C-g") 'grep)               ;; grep
+(define-key global-map (kbd "C-c g") 'goto-line)          ;; 指定行へ移動
+(define-key global-map (kbd "M-p") 'scroll-down)          ;; ページ上
+(define-key global-map (kbd "M-n") 'scroll-up)            ;; ページ下
+
+;; カーソルの点滅を止める
+(blink-cursor-mode 0)
+
+;; 行末の空白を表示
+(setq-default show-trailing-whitespace t)
+
+;; 現在行を目立たせる
+(global-hl-line-mode)
+(custom-set-faces
+  '(hl-line ((t (:background "#101040")))) ;; いい感じの青
+)
+
+;; カーソルの位置が何文字目かを表示する
+(column-number-mode t)
+
+;; カーソルの位置が何行目かを表示する
+(line-number-mode t)
+
+;; バックアップファイルを作らない
+(setq backup-inhibited t)
+
+;; 終了時にオートセーブファイルを消す
+(setq delete-auto-save-files t)
+
+;; スクロールを一行ずつにする
+(setq scroll-step 1)
+
 ;;
-;; ido-mode
+;; Ido-mode
 ;;___________________________________________________
 (ido-mode t)
 (require 'ido)
@@ -138,6 +174,7 @@
 ;; magit
 ;;___________________________________________________
 (require 'magit)
+(global-set-key (kbd "C-c s") 'magit-status)
 
 ;;
 ;; git-gutter-fringe
@@ -158,3 +195,12 @@
 ;;___________________________________________________
 (require 'undohist)
 (undohist-initialize)
+
+;;
+;; anzu
+;;___________________________________________________
+(global-anzu-mode +1)
+(custom-set-variables
+ '(anzu-mode-lighter "")
+ '(anzu-deactivate-region t)
+ '(anzu-search-threshold 1000))
