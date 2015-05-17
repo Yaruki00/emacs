@@ -74,6 +74,7 @@
 (define-key global-map (kbd "C-c g") 'goto-line)          ;; 指定行へ移動
 (define-key global-map (kbd "M-p") 'scroll-down)          ;; ページ上
 (define-key global-map (kbd "M-n") 'scroll-up)            ;; ページ下
+(define-key global-map (kbd "C-c c") 'compile)            ;; コンパイル
 
 ;; カーソルの点滅を止める
 (blink-cursor-mode 0)
@@ -204,3 +205,4 @@
  '(anzu-mode-lighter "")
  '(anzu-deactivate-region t)
  '(anzu-search-threshold 1000))
+(global-set-key (kbd "C-c r") 'anzu-query-replace-regexp)
